@@ -48,6 +48,7 @@ data "aws_iam_policy_document" "iam_trusts" {
 resource "aws_iam_role" "role" {
   assume_role_policy = data.aws_iam_policy_document.iam_trusts.json
   name               = "${var.env_name}-${var.layer_name}-${var.module_name}"
+  max_session_duration = 14400
 }
 
 resource "aws_iam_role_policy_attachment" "vanilla_role_attachment" {
