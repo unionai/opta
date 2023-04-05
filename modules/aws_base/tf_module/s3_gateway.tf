@@ -11,6 +11,6 @@ resource "aws_vpc_endpoint" "s3" {
 
 resource "aws_vpc_endpoint_route_table_association" "s3" {
   count           = local.create_vpc ? length(var.private_ipv4_cidr_blocks) : 0
-  vpc_endpoint_id = aws_vpc_endpoint.s3.id
+  vpc_endpoint_id = aws_vpc_endpoint[0].s3.id
   route_table_id  = aws_route_table.private_route_tables[count.index].id
 }
