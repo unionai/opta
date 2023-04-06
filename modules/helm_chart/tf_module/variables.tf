@@ -60,6 +60,7 @@ variable "values_file" {
 
 variable "values" {
   default = {}
+  sensitive   = true
 }
 
 variable "env_name" {
