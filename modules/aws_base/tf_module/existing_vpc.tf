@@ -19,7 +19,7 @@ data "aws_subnet" "private_subnets" {
 }
 
 data "aws_nat_gateway" "nat_gateways" {
-  for_each = data.aws_route.private_nat_routes
+  for_each = local.create_vpc ? toset([]) : data.aws_route.private_nat_routes
   id       = each.value.nat_gateway_id
   state    = "available"
 }
