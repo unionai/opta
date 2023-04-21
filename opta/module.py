@@ -145,35 +145,6 @@ class Module:
 
         return module_blk
 
-    # Generate an override file in the module, that adds extra tags to every resource.
-    def gen_tags_override(self) -> None:
-        override_config: Any = {"resource": []}
-
-        resources = self.get_terraform_resources()
-        for resource in resources:
-            resource_tags_raw = resource.tf_config.get("tags", {})
-            resource_tags = {}
-            [resource_tags.update(tag) for tag in resource_tags_raw]
-
-            # Add additional tags to each AWS resource
-            resource_tags = deep_merge(
-                resource_tags,
-                {
-                    "opta": "true",
-                    "layer": self.layer_name,
-                    "tf_address": f"module.{self.name}.{resource.type}.{resource.name}",
-                },
-            )
-
-            override_config["resource"].append(
-                {resource.type: {resource.name: {"tags": resource_tags}}}
-            )
-        if override_config["resource"] == []:
-            return
-
-        with open(f"{self.module_dir_path}/{TAGS_OVERRIDE_FILE}", "w") as f:
-            json.dump(override_config, f, ensure_ascii=False, indent=2)
-
     def translate_location(self, loc: str) -> str:
         if loc == "":
             return ""

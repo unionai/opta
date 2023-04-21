@@ -6,7 +6,7 @@ import yaml
 from pytest_mock import MockFixture
 
 from opta.constants import tf_modules_path
-from opta.core.generator import gen_all, gen_opta_resource_tags
+from opta.core.generator import gen_all
 from opta.exceptions import UserErrors
 from opta.layer import Layer
 from tests.fixtures.basic_apply import BASIC_APPLY
@@ -46,33 +46,3 @@ class TestGenerator:
             Layer.load_from_yaml("", None)
 
         os.remove(test_gen_file_path)
-
-    def test_gen_resource_tags(self, mocker: MockFixture) -> None:
-        gen_tags_file = "pytest-override.tf.json"
-        mocker.patch("opta.module.TAGS_OVERRIDE_FILE", gen_tags_file)
-        gen_tags_file_path = os.path.join(
-            tf_modules_path, "aws_base/tf_module", gen_tags_file
-        )
-
-        mocker.patch("opta.layer.open")
-        mocker.patch("opta.layer.os.path.exists")
-        mocker.patch("opta.layer.validate_yaml")
-
-        opta_config, gen_tf_file = BASIC_APPLY
-        opta_config = opta_config.copy()
-        mocker.patch("opta.layer.yaml.load", return_value=opta_config)
-        layer = Layer.load_from_yaml("", None)
-
-        gen_opta_resource_tags(layer)
-        with open(gen_tags_file_path) as f:
-            tags_config = json.load(f)
-
-        has_vpc = False
-        for resource in tags_config["resource"]:
-            resource_type = list(resource.keys())[0]
-            if resource_type == "aws_vpc":
-                has_vpc = True
-                assert resource[resource_type]["vpc"]["tags"]["opta"] == "true"
-
-        assert has_vpc
-        os.remove(gen_tags_file_path)

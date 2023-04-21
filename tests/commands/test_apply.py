@@ -18,7 +18,6 @@ from opta.module import Module
 @fixture
 def basic_mocks(mocker: MockFixture) -> None:
     mocker.patch("opta.commands.apply.amplitude_client.send_event")
-    mocker.patch("opta.commands.apply.gen_opta_resource_tags")
     mocker.patch("opta.commands.apply.PlanDisplayer")
 
     # Mock remote state

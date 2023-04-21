@@ -19,7 +19,7 @@ from opta.core.aws import AWS
 from opta.core.azure import Azure
 from opta.core.cloud_client import CloudClient
 from opta.core.gcp import GCP
-from opta.core.generator import gen, gen_opta_resource_tags
+from opta.core.generator import gen
 from opta.core.helm_cloud_client import HelmCloudClient
 from opta.core.kubernetes import cluster_exist, tail_module_log, tail_namespace_events
 from opta.core.local import Local
@@ -169,7 +169,6 @@ def _apply(
             )
 
     Terraform.create_state_storage(layer)
-    gen_opta_resource_tags(layer)
     cloud_client: CloudClient
     if layer.cloud == "aws":
         cloud_client = AWS(layer)

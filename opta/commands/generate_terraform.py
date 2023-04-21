@@ -10,7 +10,7 @@ import click
 from opta.amplitude import amplitude_client
 from opta.commands.local_flag import _clean_folder, _clean_tf_folder
 from opta.constants import REGISTRY, TF_FILE_PATH, VERSION
-from opta.core.generator import gen, gen_opta_resource_tags
+from opta.core.generator import gen
 from opta.exceptions import UserErrors
 from opta.layer import Layer
 from opta.module import Module
@@ -139,9 +139,6 @@ def generate_terraform(
                     abort=True,
                 )
             _clean_folder(output_dir)
-
-        # to keep consistent with what opta does - we could make this an option if opta tags are not desirable
-        gen_opta_resource_tags(layer)
 
         # copy helm service dir
         if "k8s-service" in [m.type for m in layer.modules]:
