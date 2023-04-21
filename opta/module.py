@@ -161,7 +161,6 @@ class Module:
                 {
                     "opta": "true",
                     "layer": self.layer_name,
-                    "tf_address": f"module.{self.name}.{resource.type}.{resource.name}",
                 },
             )
 
