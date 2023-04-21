@@ -7,7 +7,6 @@ import hcl2
 from opta.constants import REGISTRY
 from opta.exceptions import UserErrors
 from opta.resource import Resource
-from opta.utils import deep_merge, json
 
 TAGS_OVERRIDE_FILE = "tags_override.tf.json"
 if TYPE_CHECKING:

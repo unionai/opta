@@ -5,7 +5,6 @@ import pytest
 import yaml
 from pytest_mock import MockFixture
 
-from opta.constants import tf_modules_path
 from opta.core.generator import gen_all
 from opta.exceptions import UserErrors
 from opta.layer import Layer
