@@ -65,8 +65,7 @@ class Module:
         """If there is no existing default list (because folks have not yet run the version where we have started
         storing the defaults) then use the hard coded one. If we can't find the input name in the list of existing
         inputs, then also use the hard coded one. If we do find the existing input, but the force_update_default_counter
-        was increased, then use the hard coded one. Otherwise keep using the existing one
-        """
+        was increased, then use the hard coded one. Otherwise keep using the existing one"""
         input_name = input["name"]
         input_counter = input.get("force_update_default_counter", 0)
         if existing_defaults is None:
