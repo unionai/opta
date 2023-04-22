@@ -157,11 +157,7 @@ class Module:
 
             # Add additional tags to each AWS resource
             resource_tags = deep_merge(
-                resource_tags,
-                {
-                    "opta": "true",
-                    "layer": self.layer_name,
-                },
+                resource_tags, {"opta": "true", "layer": self.layer_name,},
             )
 
             override_config["resource"].append(
