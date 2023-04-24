@@ -66,6 +66,11 @@ variable "preemptible" {
   default = false
 }
 
+variable "labels" {
+  type    = map(string)
+  default = {}
+}
+
 variable "taints" {
   type    = list(map(string))
   default = []

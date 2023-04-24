@@ -1,3 +1,4 @@
+
 halt: false
 environment_module: true
 inputs:
@@ -29,6 +30,11 @@ inputs:
     user_facing: false
     description: The the cidr block for the control plane.
     default: null
+  - name: labels
+    user_facing: true
+    validator: map(str(), str(), required=False)
+    description: labels for the kubernetes nodes
+    default: {}
   - name: max_nodes
     user_facing: true
     validator: any(str(), int(), required=False)

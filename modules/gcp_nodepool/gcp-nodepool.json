@@ -3,6 +3,11 @@
   "type": "object",
   "description": "Creates an additional nodepool for the primary GKE cluster.",
   "properties": {
+    "labels": {
+      "type": "object",
+      "description": "labels for the kubernetes nodes",
+      "default": {}
+    },
     "max_nodes": {
       "type": "integer",
       "description": "The maximum number of nodes to be set by the autoscaler in for the current nodegroup PER AVAILABILITY ZONE (there's almost always 3).",
