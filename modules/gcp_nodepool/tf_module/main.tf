@@ -87,7 +87,7 @@ resource "google_container_node_pool" "node_pool" {
       mode = "GKE_METADATA"
     }
 
-    labels = merge({node_pool_name = "opta-${var.layer_name}-secondary"}, var.labels)
+    labels = merge({ node_pool_name = "opta-${var.layer_name}-secondary" }, var.labels)
 
     dynamic "taint" {
       for_each = var.taints
