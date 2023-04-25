@@ -21,7 +21,7 @@ resource "google_service_account_iam_binding" "trust_k8s_workload_idu" {
 # Adds extra permissions that are not available in `roles/iam.workloadIdentityUser`
 # See: https://cloud.google.com/iam/docs/service-account-permissions
 resource "google_service_account_iam_member" "self_token_creator" {
-  count              = var.allow_service_account_token_creator ? 1 : 0
+  count              = var.allow_self_token_creator ? 1 : 0
   service_account_id = google_service_account.k8s_service.name
   role               = "roles/iam.serviceAccountTokenCreator"
   member             = "serviceAccount:${google_service_account.k8s_service.email}"

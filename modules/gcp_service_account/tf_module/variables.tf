@@ -41,7 +41,7 @@ variable "links" {
   default = []
 }
 
-variable "allow_service_account_token_creator" {
+variable "allow_self_token_creator" {
   default = false
 }
 
