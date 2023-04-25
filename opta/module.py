@@ -1,6 +1,5 @@
 import os
 import re
-import glob
 from typing import TYPE_CHECKING, Any, Dict, Iterable, List, Optional, Tuple
 
 import hcl2
@@ -148,11 +147,6 @@ class Module:
 
     # Generate an override file in the module, that adds extra tags to every resource.
     def gen_tags_override(self) -> None:
-        # Clean up all tags_override.tf.json files, this ensures we do not
-        # leak tags to other environments/layers during future Opta runs.
-        for fn in glob.glob(f"{self.module_dir_path}/**/tf_module/{TAGS_OVERRIDE_FILE}"):
-            os.remove(fn)
-
         override_config: Any = {"resource": []}
 
         resources = self.get_terraform_resources()
