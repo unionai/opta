@@ -1,11 +1,12 @@
 from typing import TYPE_CHECKING, Generator, List, Optional, Tuple
-
 import click
 from colored import attr
+from pathlib import Path
 
 from opta import gen_tf
-from opta.constants import TF_FILE_PATH
+from opta.constants import TF_FILE_PATH, tf_modules_path
 from opta.core.kubernetes import cluster_exist, current_image_digest_tag, set_kube_config
+from opta.module import TAGS_OVERRIDE_FILE
 from opta.utils import deep_merge, logger
 
 if TYPE_CHECKING:
@@ -83,5 +84,9 @@ def gen(
 # Generate a tags override file in every module, that adds opta tags to every resource.
 def gen_opta_resource_tags(layer: "Layer") -> None:
     if "aws" in layer.providers:
+        # Remove all generated tags files, forcing re-generation
+        for tag_fn in Path(tf_modules_path).glob(f"**/{TAGS_OVERRIDE_FILE}"):
+            tag_fn.unlink()
+
         for module in layer.modules:
             module.gen_tags_override()
