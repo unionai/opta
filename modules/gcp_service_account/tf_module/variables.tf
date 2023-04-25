@@ -41,6 +41,10 @@ variable "links" {
   default = []
 }
 
+variable "allow_service_account_token_creator" {
+  default = false
+}
+
 variable "additional_iam_roles" {
   default = []
 }
